@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login&signup.css') }}">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="form_all">
+        <div id="form_inbox">
+            <!-- 로그인 페이지 -->
+            <div id="form_login">
+                <form method="post">
+                    <input type="text" name="username" id="username" placeholder="이름">
+
+                    <input type="password" name="password" id="password" placeholder="비밀번호">
+
+                    <div id="btn_1">
+                        <button type="submit" onclick=login_click()>로그인</button>
+                        <div class='solid_line'></div>
+                        <button onclick="window.location.href='/signup'" type="button" id="signup_btn">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function login_click() {
+            const user_name = document.querySelector('#username')
+            const user_password = document.querySelector('#password')
+
+            let name_2 = $('#username').val()
+            let pw_2 = $('#password').val()
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: '/',
+        //         data: {
+        //             name_give: name_2
+        //             ,password_give: pw_2
+        //         },
+        //         success: function (response) {
+        //         }
+        //     })
+        // }
+            if (user_name.value == "" || user_password.value == "") {
+                alert("빈칸을 입력해주세요")
+                window.location.reload
+            }
+        }
+    </script>
+</body>
+
+</html>

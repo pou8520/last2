@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/login&signup.css') }}">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<style>
+
+</style>
+
+<body>
+    <div id="form_all">
+        <div id="form_inbox">
+            <!-- 회원가입 페이지 -->
+            <div id="form_signup">
+                <h3>회원가입</h3>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Name">
+
+                    <label for="nickname">Nickname</label>
+                    <input type="text" name="nickname" id="nickname" placeholder="nickname">
+
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email">
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password"
+                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+
+                    <label for="password">Re Password</label>
+                    <input type="password" name="password" id="re_password"
+                        placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;">
+
+                    <div id="btn_1">
+                        <button type="button" onclick="signup_click()"
+                            style="background-color:#80a4ff">회원가입</button><br>
+                        <button onclick="window.location.href='/'" type="button" id="login_btn">로그인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 회원가입 페이지 회원가입 버튼 클릭시
+        function signup_click() {
+            const name = document.querySelector('#name')
+            const nickname = document.querySelector('#nickname')
+            const email = document.querySelector('#email')
+            const pw = document.querySelector('#password')
+            const r_pw = document.querySelector('#re_password')
+
+            let name_2 = $('#name').val()
+            let nickname_2 = $('#nickname').val()
+            let email_2 = $('#email').val()
+            let pw_2 = $('#password').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '/signup',
+                data: {
+
+                    name_give: name_2
+                    ,nickname_give: nickname_2
+                    ,email_give: email_2
+                    ,password_give: pw_2,
+                    
+                },
+                success: function (response) {
+                }
+            })
+
+            if (name.value == "" || email.value == "" || pw.value === "" || r_pw.value == "" || nickname.value == "") {
+                alert("빈칸을 입력해주세요")
+            }
+            else {
+                if (pw.value !== r_pw.value) {
+                    alert("비밀번호를 확인해주세요")
+                }
+                else {
+                    alert("회원가입 완료")
+                    window.location.href = '/';
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
