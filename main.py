@@ -155,6 +155,7 @@ def login_btn():
             return render_template('/index.html', msg=msg)
         else:
             msg = '로그인 실패!'
+        db.close()
     return render_template('login.html', msg=msg)
 
 
