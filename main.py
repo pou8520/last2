@@ -106,7 +106,7 @@ def none1_page():
 def none2_page():
     if "username" in session:
         username = session["username"]  # 로그인을 했다면(세션안에 정보가 있으니) 로그인하여 생성된 세션 딕셔너리의 값을 변수 username에 저장
-        return render_template('none1.html',
+        return render_template('none2.html',
                                username=username)  # 저장된 username 변수를 main.html 페이지로 전달, 즉 유저마다 각기다른 /user페이지를 보게됨
     else:  # 세션이 존재하지 않는 경우
         return redirect(url_for("login_btn"))  # 세션안에 정보가 없어서(혹은 브라우저를 나가면 세션이 삭제) 로그인 페이지로 redirect
