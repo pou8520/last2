@@ -23,21 +23,23 @@
 </head>
 
 <body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
-  <header>
+<header>
     <h2><a href="/main" ;>Apartment</a></h2>
     <div>
+
       <nav>
         {% include 'navbar.html' %}
         <div class='container'>
-          {% block contetn %}
+          {% block contetns %}
           {% endblock %}
         </div>
       </nav>
+
     </div>
-  </header>
+</header>
   <div class="background_form">
     <div class="btn_form">
-      <button onclick="window.location.href='/main'" class="changeForm_01" type="button" id="togglenone_1">none</button>
+      <button onclick="window.location.href='/main'" class="changeForm_01" type="button" id="togglenone_1">자유게시판</button>
       <button onclick="window.location.href='/none2'" type="button" id="togglenone_2">none</button>
       <!-- <button onclick="window.location.href='/none3'" type="button" id="togglenone_3">none</button>
       <button onclick="window.location.href='/none4'" type="button" id="togglenone_4">none</button> -->
