@@ -28,6 +28,50 @@ def login_page():
 def signup_page():
     return render_template('signup.html')
 
+@app.route('/profile')
+def my_profile():
+    if "username" in session:
+        username = session["username"]  # 로그인을 했다면(세션안에 정보가 있으니) 로그인하여 생성된 세션 딕셔너리의 값을 변수 username에 저장
+        nickname = session['nickname']
+        email = session['email']
+        password = session['password']
+
+        return render_template('profile.html',
+                               username=username, nickname=nickname, email=email, password=password)  # 저장된 username 변수를 profile.html 페이지로 전달, 즉 유저마다 각기다른 /user페이지를 보게됨
+    else:  # 세션이 존재하지 않는 경우
+        return redirect(url_for("login_btn"))  # 세션안에 정보가 없어서(혹은 브라우저를 나가면 세션이 삭제) 로그인 페이지로 redirect
+
+@app.route('/edit_profile', methods=['PUT'])
+def edit_profile():
+    cursor = db.cursor()
+
+    userid = session['id']
+    nickname_receive = request.form['nickname_give']
+    email_receive = request.form['email_give']
+    password_receive = request.form['password_give']
+    sql = f'''UPDATE accounts
+                    SET nickname = '{nickname_receive}',email = '{email_receive}',pw = '{password_receive}'
+                    WHERE id = {userid};'''
+    cursor.execute(sql)
+
+    db.commit()
+    db.close()
+    session['nickname'] = nickname_receive
+    session['email'] = email_receive
+    session['password'] = password_receive
+
+    return jsonify({'msg': '회원정보 수정 완료!'})
+
+@app.route("/delete_account", methods=["DELETE"])
+def delete_account():
+    userid = session['id']
+    sql = f'''DELETE FROM accounts
+            WHERE id = {userid};'''
+    cursor.execute(sql)
+    db.commit()
+    session.pop('username', None)
+    return jsonify({'msg': '회원탈퇴 완료!'})
+
 
 @app.route('/main')
 def main_page():
@@ -80,7 +124,11 @@ def login_btn():
             session['loggedin'] = True
             session['id'] = account[0]
             session['username'] = account[1]
+            session['nickname'] = account[2]
+            session['email'] = account[3]
+            session['password'] = account[4]
             msg = '로그인 성공'
+            session.permanent = True  # 세션 작동
             return render_template('/index.html', msg=msg)
         else:
             msg = '로그인 실패!'

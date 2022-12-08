@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&family=Diplomata+SC&family=Satisfy&display=swap');
+    </style>
+    <link rel="stylesheet" href="static\styles\nonebtns.css">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            overflow-x: hidden;
+            background-image: url("https://img.freepik.com/free-photo/central-business-district-in-singapore_335224-642.jpg?size=626&ext=jpg&ga=GA1.2.93319971.1670399783");
+            background-repeat: repeat-y;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        /* header,nav css */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 10px;
+            letter-spacing: 0.1rem;
+            font-style: italic;
+            /* background: rgb(255, 255, 255);
+                background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(231, 250, 255, 1) 0%, rgba(98, 211, 252, 1) 100%); */
+            background-color: rgba(221, 224, 224, 0.815);
+
+
+        }
+
+        header a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            border-radius: 50%;
+            font-weight: 700;
+        }
+
+        header a:hover {
+            color: red;
+        }
+
+        header h2 {
+            font-family: 'Dancing Script', cursive;
+            font-family: 'Diplomata SC', cursive;
+        }
+
+        ul {
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+            padding-inline-start: 40px;
+        }
+
+        header li {
+            margin-right: 1rem;
+        }
+
+        header ul {
+            display: flex;
+        }
+
+        ol,
+        ul {
+            list-style: none;
+        }
+
+        /* header,nav css 끝 */
+        /* section css*/
+        .background_form {
+            /* background-color: rgb(101, 101, 101); */
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* background-image: url("https://img.freepik.com/free-photo/central-business-district-in-singapore_335224-642.jpg?size=626&ext=jpg&ga=GA1.2.93319971.1670399783");
+        background-repeat: repeat-y;
+        background-size: 100% 100%;
+        background-attachment: fixed; */
+
+        .mypic {
+            width: 140px;
+            border-radius: 50%;
+            float: left;
+            position: relative;;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn_form {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .btn_form button {
+            color: rgb(0, 0, 0);
+            background-color: transparent;
+            /* margin-right: 10px; */
+            border: 0;
+            outline: 0;
+            padding: 20px;
+            border-radius: 50%;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 30px
+        }
+
+        .btn_form button:hover {
+            color: red;
+        }
+
+        /* footer css  */
+        footer {
+            display: flex;
+            background-color: black;
+            color: white;
+            width: 100%;
+            height: 10vh;
+            bottom: 0px;
+            /* position: absolute; */
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            flex-direction: column;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+
+        }
+
+        .footer nav {
+            margin-top: 10px;
+        }
+
+        #interface_form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            margin: auto;
+            margin-bottom: 20px;
+            width: 95%;
+            height: 120%;
+            border-radius: 20px;
+            border: 0
+        }
+    </style>
+
+    <script>
+        function edit_profile() {
+
+            const pw = document.querySelector('#new_password')
+            const r_pw = document.querySelector('#new_password2')
+            if (pw.value != r_pw.value) {
+                alert("비밀번호를 확인해주세요")
+            } else {
+                nickname = $('#new_nickname').val()
+                email = $('#new_email').val()
+                password = $('#new_password').val()
+
+                $.ajax({
+                    type: 'PUT',
+                    url: '/edit_profile',
+                    data: {
+                        nickname_give: nickname,
+                        email_give: email,
+                        password_give: password
+                    },
+                    success: function (response) {
+                        alert(response['msg'])
+                        window.location.reload()
+                    }
+                })
+            }
+        }
+        function delete_account() {
+            $.ajax({
+                    type: 'DELETE',
+                    url: '/delete_account',
+                    success: function (response) {
+                        alert(response['msg'])
+                        window.location.reload()
+
+                    }
+                }
+            )
+        }
+
+
+    </script>
+</head>
+
+<body topmargin="0" leftmargin="0" marginwidth="0" marginheight="0">
+<header>
+    <h2><a href="/main" ;>Apartment</a></h2>
+    <div>
+        <nav>
+            {% include 'navbar.html' %}
+            <div class='container'>
+                {% block contetn %}
+                {% endblock %}
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="background_form">
+    <div class="btn_form">
+        <button onclick="window.location.href='/none1'" class="changeForm_01" type="button"
+                id="togglenone_1">none
+        </button>
+        <button onclick="window.location.href='/main'" type="button" id="togglenone_2">none</button>
+        <!-- <button onclick="window.location.href='/none3'" type="button" id="togglenone_3">none</button>
+  <button onclick="window.location.href='/none4'" type="button" id="togglenone_4">none</button> -->
+
+    </div>
+
+
+    <div id="interface_form" class="hide">
+
+        <div>
+            <form action="/main" method="POST">
+                <h1>{{ username }} 님의 프로필 </h1>
+            </form>
+        </div>
+        <div>
+            <a href="/upload">나의 파일 업로드</a><br><br>
+            <a href="/download">나의 파일 다운로드</a><br><br>
+
+            <div id="userinfo">
+
+
+                <p>유저네임</p>
+                <p>{{ username }}</p>
+                <p>닉네임</p>
+                <input type="text" id="new_nickname" name="nickname" title="닉네임" value="{{ nickname }}"
+                       maxlength="13">
+                <p>이메일</p>
+                <input type="text" id="new_email" name="email" title="email" value="{{ email }}"
+                       maxlength="13">
+                <p>비밀번호</p>
+                <input type="password" id="new_password" class="password" title="password" value="{{ password }}"
+                       maxlength="13">
+                <p>비밀번호 확인</p>
+                <input type="password" id="new_password2" class="password" title="password" value="{{ password }}"
+                       maxlength="13">
+
+
+                <div class="guide"></div>
+            </div>
+            <div>
+                <button onclick="edit_profile()">정보 수정</button>
+            </div>
+            <div class="second"><a href="">
+                <button onclick="delete_account()">회원 탈퇴</button>
+            </a></div>
+        </div>
+    </div>
+</div>
+<footer>
+    <nav>
+        <a href='' target='_blank'>Blog</a> |
+        <a href='' target='_blank'>Github</a>
+    </nav>
+    <p>
+        <span></span><br/>
+        <span>Copyright ©2022 second project. All rights reserved.</span>
+    </p>
+</footer>
+</body>
+
+</html>
