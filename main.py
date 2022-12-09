@@ -56,8 +56,10 @@ def my_profile():
         nickname = session["nickname"]
         email = session["email"]
         password = session["password"]
+        photo = f"uploads/{username}.jpeg"
         return render_template('profile.html',
-                               username=username,nickname=nickname,email=email,password=password)  # 저장된 username 변수를 profile.html 페이지로 전달, 즉 유저마다 각기다른 /user페이지를 보게됨
+                               username=username, nickname=nickname, email=email, password=password,
+                               photo=photo)  # 저장된 username 변수를 profile.html 페이지로 전달, 즉 유저마다 각기다른 /user페이지를 보게됨
     else:  # 세션이 존재하지 않는 경우
         return redirect(url_for("login_btn"))  # 세션안에 정보가 없어서(혹은 브라우저를 나가면 세션이 삭제) 로그인 페이지로 redirect
 
@@ -157,7 +159,9 @@ def login_btn():
             session['password'] = account[4]
             msg = '로그인 성공'
             session.permanent = True  # 세션 작동
-            return render_template('/index.html', msg=msg)
+            return redirect(url_for("main_page", msg=msg))
+
+
         else:
             msg = '로그인 실패!'
         db.close()
@@ -326,12 +330,14 @@ def render_file():
 # 업로드 처리시
 @app.route('/fileUpload', methods=['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':
-        upload_files = request.files['file']
-        # 저장할 경로 + 파일명
-        upload_files.save('./static/uploads/' + secure_filename(upload_files.filename))
-        files = os.listdir("./static/uploads/")  # static 폴더 아래 uploads 폴더 형성해야함
-    return render_template('check.html')
+    if "username" in session:
+        username = session["username"]
+        if request.method == 'POST':
+            upload_files = request.files['file']
+            # 저장할 경로 + 파일명
+            upload_files.save('./static/uploads/{}.jpeg'.format(username))  # + secure_filename(upload_files.filename))
+            files = os.listdir("./static/uploads/")  # static 폴더 아래 uploads 폴더 형성해야함
+        return render_template('check.html')
 
 
 # 다운로드 HTML

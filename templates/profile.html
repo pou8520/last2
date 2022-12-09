@@ -198,7 +198,6 @@
                     type: 'POST',
                     url: '/delete_account',
                     success: function (response) {
-                        alert(response['msg'])
                         window.location.reload()
 
                     }
@@ -243,9 +242,14 @@
             </form>
         </div>
         <div>
-            <a href="/upload">나의 파일 업로드</a><br><br>
-            <a href="/download">나의 파일 다운로드</a><br><br>
+    <img src = "{{url_for('static', filename = photo) }}" width="150">
+</div>
 
+<div>
+    <a href="/upload">프로필이미지 변경</a><br><br>
+    <a href="/download">파일 다운로드</a><br><br>
+
+    <div id="userinfo">
             <div id="userinfo">
 
 
