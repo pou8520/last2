@@ -195,9 +195,10 @@
         }
         function delete_account() {
             $.ajax({
-                    type: 'DELETE',
+                    type: 'POST',
                     url: '/delete_account',
                     success: function (response) {
+                        console.log(response)
                         alert(response['msg'])
                         window.location.reload()
 
@@ -270,9 +271,9 @@
             <div>
                 <button onclick="edit_profile()">정보 수정</button>
             </div>
-            <div class="second"><a href="">
-                <button onclick="delete_account()">회원 탈퇴</button>
-            </a></div>
+            <div class="second">
+                <button type="button" onclick="delete_account()">회원 탈퇴</button>
+            </div>
         </div>
     </div>
 </div>

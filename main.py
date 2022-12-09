@@ -84,7 +84,7 @@ def edit_profile():
     return jsonify({'msg': '회원정보 수정 완료!'})
 
 
-@app.route("/delete_account", methods=["DELETE"])
+@app.route("/delete_account", methods=["POST"])
 def delete_account():
     userid = session['id']
     sql = f'''DELETE FROM accounts
