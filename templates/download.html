@@ -1,0 +1,27 @@
+</html>
+	<body>
+		<br><br><br><br>
+		<center>
+			<form action = "/download" method = "POST" enctype = "multipart/form-data">
+				<input type = "text" name = "file" style="background-color: white;" placeholder="파일명 입력 후 다운로드 버튼" /><br><br><br><br>
+				<div id = "sub" >
+					<input type = "submit" value="다운로드"/>
+<!--					<a class="btn btn-success" href="{{url_for('download_file')}}">Download</a>-->
+				</div>
+
+					<ul>
+						<br><br><br><br>
+						<div style="font-size:1.6em; color:rgb(175, 184, 178);">
+						파일 목록 <br><br>
+						{% for n in files %}
+						<li>{{n}}</li>
+						{% endfor %}
+						</div>
+					</ul>
+
+			</form>
+
+		</center>
+	</body>
+
+</html>
